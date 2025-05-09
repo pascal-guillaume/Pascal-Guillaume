@@ -1,20 +1,26 @@
 // Script principal
 document.addEventListener('DOMContentLoaded', function() {
-    // Gestion du menu burger
     const burgerMenu = document.querySelector('.burger-menu');
     const navMenu = document.querySelector('.nav-menu');
-
+    
     if (burgerMenu && navMenu) {
+        const menuItems = navMenu.querySelectorAll('li');
+        
+        // Ajouter l'index pour le délai d'animation
+        menuItems.forEach((item, index) => {
+            item.style.setProperty('--i', index);
+        });
+
         burgerMenu.addEventListener('click', () => {
             burgerMenu.classList.toggle('active');
-            navMenu.classList.toggle('show');
+            navMenu.classList.toggle('active');
         });
 
         // Fermer le menu si on clique sur un lien
-        navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+        menuItems.forEach(item => {
+            item.querySelector('a').addEventListener('click', () => {
                 burgerMenu.classList.remove('active');
-                navMenu.classList.remove('show');
+                navMenu.classList.remove('active');
             });
         });
     }
@@ -55,20 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Code à exécuter une fois le DOM chargé
     console.log('Site Vibration Résonance chargé');
 
-    // Gestion du défilement fluide
-    const sections = document.querySelectorAll('section');
-    let currentSectionIndex = 0;
-
-    window.addEventListener('wheel', (e) => {
-        if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-            currentSectionIndex++;
-            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
-        } else if (e.deltaY < 0 && currentSectionIndex > 0) {
-            currentSectionIndex--;
-            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-
     // Diaporama
     const initSlideshow = () => {
         const slideshow = document.getElementById('residentsSlideshow');
@@ -105,4 +97,102 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     initSlideshow();
+
+    // Initialiser le chargement différé des médias audio
+    initLazyAudioLoading();
+
+    // Add auto-play next track functionality
+    const albums = document.querySelectorAll('.album-player');
+    albums.forEach(album => {
+        const player = album.querySelector('audio');
+        const tracks = album.querySelectorAll('.track');
+        let currentTrackIndex = 0;
+
+        player.addEventListener('ended', () => {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            const nextTrack = tracks[currentTrackIndex];
+            if (nextTrack) {
+                player.src = nextTrack.dataset.src;
+                player.play();
+                updateTrackUI(album, nextTrack);
+            }
+        });
+    });
+
+    function updateTrackUI(albumPlayer, activeTrack) {
+        const tracks = albumPlayer.querySelectorAll('.track');
+        tracks.forEach(track => track.classList.remove('playing'));
+        activeTrack.classList.add('playing');
+        const titleSpan = albumPlayer.querySelector('.player-title span');
+        if (titleSpan) {
+            titleSpan.textContent = activeTrack.textContent;
+        }
+    }
+});
+
+// Fonction pour le chargement différé des médias audio
+function initLazyAudioLoading() {
+    const audioPlayers = document.querySelectorAll('audio');
+    const options = {
+        root: null,
+        rootMargin: '50px',
+        threshold: 0.1
+    };
+
+    const audioObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const audioElement = entry.target;
+                const tracks = audioElement.closest('.album-player').querySelectorAll('.track');
+                
+                // Charger uniquement la première piste
+                if (tracks.length > 0) {
+                    const firstTrack = tracks[0];
+                    audioElement.src = firstTrack.dataset.src;
+                }
+                
+                observer.unobserve(audioElement);
+            }
+        });
+    }, options);
+
+    audioPlayers.forEach(player => {
+        audioObserver.observe(player);
+    });
+}
+
+// Gestion du menu mobile
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav');
+    const overlay = document.querySelector('.overlay');
+    const menuLinks = document.querySelectorAll('nav a');
+
+    function closeMenu() {
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Toggle menu
+    navToggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        overlay.classList.toggle('active');
+        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Fermer le menu en cliquant sur l'overlay
+    overlay.addEventListener('click', closeMenu);
+
+    // Fermer le menu quand on clique sur un lien
+    menuLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Fermer le menu en appuyant sur Échap
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMenu();
+        }
+    });
 });

@@ -1,5 +1,6 @@
 const audioPlayer = document.getElementById('audioPlayer');
 const playlist = document.getElementById('playlist');
+let currentlyPlaying = null;
 
 // Liste directe des chansons pour éviter les problèmes avec GitHub Pages
 const songs = [
@@ -28,9 +29,22 @@ function createPlaylist() {
 }
 
 function playSong(src, element) {
+    if (currentlyPlaying === element && !audioPlayer.paused) {
+        audioPlayer.pause();
+        element.classList.remove('active');
+        currentlyPlaying = null;
+        return;
+    }
+
     audioPlayer.src = src;
-    audioPlayer.play();
-    updateActiveState(element);
+    audioPlayer.play()
+        .then(() => {
+            updateActiveState(element);
+            currentlyPlaying = element;
+        })
+        .catch(error => {
+            console.error('Erreur de lecture:', error);
+        });
 }
 
 function updateActiveState(element) {
@@ -42,11 +56,12 @@ function updateActiveState(element) {
     element.classList.add('active');
 }
 
-// Ajouter un écouteur pour mettre à jour l'état quand la chanson se termine
+// Gérer la fin de la lecture
 audioPlayer.addEventListener('ended', () => {
-    document.querySelectorAll('.playlist-item').forEach(item => {
-        item.classList.remove('active');
-    });
+    if (currentlyPlaying) {
+        currentlyPlaying.classList.remove('active');
+        currentlyPlaying = null;
+    }
 });
 
 // Initialiser la playlist au chargement

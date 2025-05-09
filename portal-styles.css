@@ -7,11 +7,12 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: linear-gradient(45deg, var(--beige), var(--violet));
+    background: var(--primary-color);
+    background-image: linear-gradient(to right, var(--dark-color), var(--primary-color));
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Porkys', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     transition: background 0.5s ease;
 }
 
@@ -23,12 +24,15 @@ body {
 
 .buttons-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 1.5rem;
     padding: 2rem;
+    align-items: center;
+    justify-items: center;
 }
 
 .portal-button {
+    width: 300px;
     height: 300px;
     display: flex;
     flex-direction: column;
@@ -37,7 +41,7 @@ body {
     text-decoration: none;
     border-radius: 2rem;
     padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -66,6 +70,12 @@ body {
     box-shadow: none;
 }
 
+.vibration, .kluck {
+    opacity: 0.6;
+    transform: scale(0.85);
+    filter: grayscale(0%);
+}
+
 .vibration {
     background: var(--neutral-light);
     color: var(--primary-blue);
@@ -78,8 +88,10 @@ body {
     background: var(--primary-color);
     color: var(--seventies-orange);
     border: 2px solid var(--seventies-orange);
-    box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2);
+    box-shadow: 0 4px 20px rgba(243, 156, 18, 0.4);
     font-family: 'Playfair Display', serif;
+    transform: scale(1.1);
+    z-index: 1;
 }
 
 .kluck {
@@ -87,6 +99,12 @@ body {
     border: 2px solid var(--violet);
     box-shadow: 0 4px 20px rgba(186, 104, 200, 0.3);
     font-family: 'Porkys', cursive;
+}
+
+.vibration:hover, .kluck:hover {
+    opacity: 0.8;
+    transform: scale(0.9);
+    filter: grayscale(0%);
 }
 
 .vibration:hover {
@@ -103,8 +121,8 @@ body:has(.vibration:hover) {
 }
 
 .pascal:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(1.15);
+    box-shadow: 0 15px 30px rgba(243, 156, 18, 0.5);
     background: var(--seventies-orange);
     color: var(--light-color);
     border-color: transparent;
@@ -121,7 +139,7 @@ body:has(.pascal:hover) {
 .kluck:hover {
     background: var(--violet);
     color: white;
-    transform: translateY(-10px) scale(1.05);
+    transform: translateY(-10px) scale(0.8);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     border-color: transparent;
 }
@@ -239,12 +257,59 @@ body:has(.kluck:hover) {
 }
 
 @media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        padding: 0 1rem;
+    }
+
     .buttons-container {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
     }
     
     .portal-button {
-        height: 200px;
+        width: 280px;
+        height: 280px;
+        padding: 1.5rem;
+    }
+
+    .vibration, .kluck {
+        transform: scale(0.9);
+    }
+
+    .pascal {
+        transform: scale(1);
+        order: -1; /* Place Pascal Guillaume en premier sur mobile */
+    }
+
+    .button-title {
+        font-size: 2.2rem;
+    }
+
+    .button-desc {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .portal-button {
+        width: 260px;
+        height: 260px;
+        padding: 1.2rem;
+    }
+
+    .button-title {
+        font-size: 2rem;
+    }
+
+    .button-desc {
+        font-size: 1rem;
     }
 }
 
@@ -360,7 +425,7 @@ body:has(.kluck:hover)::after {
 
 .welcome-title {
     text-align: center;
-    font-family: "Marck Script", cursive;
+    font-family: 'Cinzel', serif;
     font-size: 4rem;
     color: #FFFFFF;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -370,7 +435,7 @@ body:has(.kluck:hover)::after {
 
 body:has(.vibration:hover) .welcome-title {
     color: var(--primary-blue);
-    font-family: 'Marck Script', cursive;
+    /* Suppression du changement de police pour garder Cinzel */
 }
 
 .portal-container {

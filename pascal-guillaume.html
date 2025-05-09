@@ -36,7 +36,6 @@
       color: var(--dark-color);
       background: #f6f6f6 url('https://www.transparenttextures.com/patterns/natural-paper.png');
       line-height: 1.6;
-      scroll-behavior: smooth;
       overflow-x: hidden;
     }
     
@@ -65,16 +64,15 @@
       text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
     }
     
+    /* Navigation styles */
     nav {
-      margin-top: 15px;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
+      gap: 20px;
     }
     
     nav a {
       color: #fff;
-      margin: 0 15px;
       text-decoration: none;
       font-size: 1.1em;
       font-weight: 600;
@@ -82,21 +80,34 @@
       padding: 5px 0;
     }
     
-    nav a::after {
-      content: '';
+    .nav-toggle {
+      display: none;
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: var(--seventies-orange);
-      transition: width 0.3s ease;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+      z-index: 1001;
+      padding: 10px;
     }
-    
-    nav a:hover::after {
-      width: 100%;
+
+    .back-button {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      padding: 0;
+      object-fit: contain;
     }
-    
+
     /* Section hero avec effet parallax */
     .hero {
       position: relative;
@@ -396,6 +407,51 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
+    /* Styles pour le lecteur audio et la liste des pistes */
+    .track-list {
+      margin-top: 15px;
+    }
+    
+    .track {
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--light-color);
+      color: var(--dark-color);
+      font-size: 0.9em;
+    }
+    
+    .track:hover {
+      background: var(--seventies-orange);
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .track.playing {
+      background: var(--seventies-orange);
+      color: white;
+      padding-left: 20px;
+      font-weight: bold;
+    }
+    
+    .track.playing::before {
+      content: "▶";
+      margin-right: 8px;
+      font-size: 0.8em;
+    }
+    
+    audio {
+      width: 100%;
+      margin-bottom: 15px;
+      border-radius: 30px;
+    }
+    
+    audio::-webkit-media-controls-panel {
+      background: var(--light-color);
+    }
+    
     /* Section Contact stylisée */
     .contact {
       text-align: center;
@@ -410,7 +466,6 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
-      margin-top: 30px;
     }
     
     .contact-item {
@@ -540,6 +595,116 @@
       z-index: -1;
     }
     
+    /* Styles pour la galerie et le carrousel */
+    .gallery-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-item {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .carousel-item img,
+    .carousel-item video {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--seventies-orange);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2em;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .carousel-button:hover {
+      opacity: 1;
+    }
+
+    .carousel-button.prev {
+      left: 20px;
+    }
+
+    .carousel-button.next {
+      right: 20px;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .carousel-dot.active {
+      background: var(--seventies-orange);
+    }
+
+    @media (max-width: 768px) {
+      .carousel {
+        height: 400px;
+      }
+      
+      .carousel-button {
+        width: 30px;
+        height: 30px;
+        font-size: 1em;
+      }
+    }
+
     /* Media Queries */
     @media (max-width: 992px) {
       .spectacle-content, 
@@ -555,6 +720,18 @@
       .spectacle-details {
         padding-left: 0;
       }
+
+      .about {
+        grid-template-columns: 1fr !important;
+      }
+
+      .about-image {
+        margin: 0 auto 30px !important;
+      }
+
+      .about-text {
+        text-align: center !important;
+      }
     }
     
     @media (max-width: 768px) {
@@ -566,6 +743,80 @@
       
       .contact-info {
         flex-direction: column;
+      }
+
+      .about {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+      }
+      
+      .about-image {
+        width: 250px !important;
+        margin: 0 auto !important;
+      }
+      
+      .about-text {
+        text-align: center !important;
+        padding: 0 15px !important;
+      }
+
+      header {
+        padding: 10px 50px;
+      }
+
+      header h1 {
+        font-size: 1.6em;
+        margin: 0 40px;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: var(--primary-color);
+        padding: 80px 20px 20px;
+        transition: all 0.3s ease;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      nav.active {
+        right: 0;
+      }
+
+      nav a {
+        font-size: 1.1em;
+        margin: 10px 0;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      nav.active a {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      .overlay.active {
+        display: block;
       }
     }
     
@@ -660,7 +911,58 @@
     transform: translateY(-50%) scale(1.1);
 }
 
+    .about-image:hover img {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    }
+    
+    .about-image:hover div {
+      transform: scale(1.1) rotate(10deg);
+    }
+
   </style>
+  <!-- Préchargement des ressources critiques -->
+  <link rel="preload" href="portrait-pascal.png" as="image">
+  <link rel="preload" href="fonts/Wall Notes 400.otf" as="font" crossorigin>
+  
+  <!-- DNS-prefetch pour les ressources externes -->
+  <link rel="dns-prefetch" href="https://open.spotify.com">
+  
+  <!-- Optimisation des images -->
+  <script src="js/image-loader.js" defer></script>
+  
+  <!-- Optimisation audio -->
+  <script>
+      // Définir une taille de buffer audio plus petite pour un chargement plus rapide
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      const audioContext = new AudioContext({
+          latencyHint: 'playback',
+          sampleRate: 44100
+      });
+  </script>
+
+  <!-- Optimisations de performance -->
+  <link rel="preconnect" href="https://open.spotify.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  
+  <!-- Service Worker -->
+  <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js')
+                  .then(registration => {
+                      console.log('ServiceWorker enregistré');
+                  })
+                  .catch(error => {
+                      console.error('Erreur ServiceWorker:', error);
+                  });
+          });
+      }
+  </script>
+
+  <!-- Gestionnaires de médias -->
+  <script src="js/media-optimizer.js" defer></script>
+  <script src="js/album-manager.js" defer></script>
 </head>
 <body class="pascal-page">
   <!-- Header & Navigation -->
@@ -669,12 +971,15 @@
         <img src="images/blanc.png" alt="Retour à l'accueil" class="back-button">
     </a>
     <h1>Pascal Guillaume</h1>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
     <nav>
       <a href="#about">À propos</a>
       <a href="#spectacles">Spectacles</a>
       <a href="#discography">Discographie</a>
+      <a href="#gallery">Galerie</a>
       <a href="#contact">Contact</a>
     </nav>
+    <div class="overlay"></div>
   </header>
 
   <!-- Hero Section -->
@@ -693,9 +998,22 @@
   <section id="about">
     <div class="vinyl seventies-decoration" style="right: -150px; top: 50px;"></div>
     <h2 class="section-title fade-in">À propos</h2>
-    <div class="about fade-in">
-      <p>Pascal Guillaume est un artiste français aux multiples talents. Chanteur, auteur-compositeur, comédien et conteur, il explore avec passion la chanson, le théâtre et la narration. Il s'adresse tant au grand public qu'au jeune public, notamment grâce à son personnage emblématique de Monsieur Klück.</p>
-      <p>Passionné par les seventies, il offre des spectacles riches et diversifiés, alliant reprises de classiques francophones et créations originales. Sa voix chaleureuse et son interprétation sincère transportent le public dans un univers musical où nostalgie et émotions se rencontrent.</p>
+    <div class="about fade-in" style="display: grid; grid-template-columns: 300px 1fr; gap: 60px; align-items: start; padding: 20px;">
+      <div class="about-image" style="position: relative; transition: all 0.4s ease-out;">
+        <img src="images/low-res/portrait.jpg" 
+             data-highres="portrait-pascal.png"
+             alt="Portrait de Pascal Guillaume" 
+             width="300" 
+             height="400"
+             loading="lazy" 
+             style="width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div style="position: absolute; top: -15px; right: -15px; width: 120px; height: 120px; background: var(--seventies-orange); opacity: 0.1; border-radius: 50%; z-index: -1; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+      </div>
+      <div class="about-text" style="text-align: left;">
+        <p>Pascal Guillaume est un artiste français aux multiples talents. Chanteur, auteur-compositeur, comédien et conteur, il explore avec passion la chanson, le théâtre et la narration. Il s'adresse tant au grand public qu'au jeune public, notamment grâce à son personnage emblématique de Monsieur Klück.</p>
+        <p>Passionné par les seventies, il offre des spectacles riches et diversifiés, alliant reprises de classiques francophones et créations originales. Sa voix chaleureuse et son interprétation sincère transportent le public dans un univers musical où nostalgie et émotions se rencontrent.</p>
+        <a href="#spectacles" class="btn">Découvrez mon dernier album !</a>      
+      </div>
     </div>
   </section>
 
@@ -708,13 +1026,13 @@
         <div class="parcours-item">
           <i class="fas fa-microphone"></i>
           <h3>Chanteur</h3>
-          <p>Baryton haute contre avec mon CD VISAGE, à retrouver sur toutes les plateformes. Aujourd'hui, plus en voix haute qui m'inspire souvent davantage...</p>
+          <p>Chanteur Baryton haute contre, retrouvez moi sur toutes les plate-formes.</p>
         </div>
 
         <div class="parcours-item">
           <i class="fas fa-theater-masks"></i>
           <h3>Comédien Conteur</h3>
-          <p>Au gré des rencontres, j'ai cherché mes voix, écrit des mots d'amour, de désamour, ou plus engagés comme « REFUGIES ».</p>
+          <p>Au gré des rencontres, j'ai conçu et réalisé des spectacles mêlants histoires et musiques pour les enfants, et collaboré à diverses productions artistiques tout public.</p>
         </div>
 
         <div class="parcours-item">
@@ -727,20 +1045,20 @@
           <i class="fas fa-heart"></i>
           <h3>Créateur de Vibrations et Résonances</h3>
           <p>Pour institutions spécialisées</p>
-          <a href="http://vibrations-resonances.fr/" target="_blank" class="btn btn-small">Découvrir</a>
+          <a href="vibration-resonance.html" target="_blank" class="btn btn-small">Découvrir</a>
         </div>
 
         <div class="parcours-item">
           <i class="fas fa-child"></i>
           <h3>Artiste Jeune Public</h3>
           <p>Avec le personnage de MONSIEUR KLÜCK</p>
-          <a href="https://spshowtail.wixsite.com/monsieur-kluck" target="_blank" class="btn btn-small">En savoir plus</a>
+          <a href="mr-kluck.html" target="_blank" class="btn btn-small">En savoir plus</a>
         </div>
 
         <div class="parcours-item">
           <i class="fas fa-users"></i>
           <h3>Artiste Grand Public</h3>
-          <p>Avec mon ami Vince Bilon, Auteur Compositeur Interprète et Arrangeur Réalisateur, j'ai créé mon site pour partager avec vous mes nouvelles chansons.</p>
+          <p>Retrouvez ici toute ma discographie, et mes nouveaux albums.</p>
         </div>
       </div>
       
@@ -755,54 +1073,59 @@
     <div class="vinyl seventies-decoration" style="left: -150px; top: 250px;"></div>
     <h2 class="section-title fade-in">Spectacles & Concerts</h2>
     <div class="spectacles-container">
-      <!-- Spectacle 1: Réveiller nos Chansons -->
-      <div class="spectacle fade-in">
-        <div class="spectacle-content">
-          <div class="spectacle-image">
-            <img src="./rnc.jpeg" alt="Réveiller nos Chansons">
+      <!-- Spectacle 1: Nouveautés -->
+      <div class="spectacle fade-in" style="background: linear-gradient(135deg, #1f1f1f, #2c2c2c); color: white;">
+        <div class="spectacle-content" style="grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+          <div class="spectacle-image" style="position: relative;">
+            <div style="position: relative; z-index: 2;">
+              <iframe style="border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" 
+                      src="https://open.spotify.com/embed/album/1X2Hns32O7Y2r3ufiPBi9n?utm_source=generator" 
+                      width="100%" 
+                      height="352" 
+                      frameBorder="0" 
+                      allowfullscreen="" 
+                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                      loading="lazy">
+              </iframe>
+            </div>
+            <div style="position: absolute; top: -20px; right: -20px; width: 150px; height: 150px; background: var(--seventies-orange); opacity: 0.1; border-radius: 50%; z-index: 1;"></div>
           </div>
-          <div class="spectacle-details">
-            <h3>Réveiller nos Chansons</h3>
-            <p><strong>Concert de reprises</strong> de chansons francophones des années "seventies" en duo.</p>
-            <p><strong>Programme :</strong> Thématique variée pour la programmation culturelle, animations pour seniors et festivités. Le spectacle propose des expériences d'Artistes de scène avec une prestation live acoustique.</p>
-            <p><strong>Fiche technique :</strong></p>
-            <ul>
-              <li>Voix lead, chœurs et guitares folk</li>
-              <li>Accompagnement sur bande-son</li>
-              <li>Sonorisation autonome avec 2 micros Sure SM58, guitare électro-acoustique et 2 entrées stéréo pour bandes-son</li>
-              <li>Décor en toile tendue (2,30m x 2,30m) et lumières d'ambiance</li>
-              <li>Durée : 45 minutes par set (3 sets maximum, au-delà sur devis)</li>
-            </ul>
-            <p><strong>Tarifs :</strong> Devis sur-mesure, avec possibilité de tarifs exceptionnels pour plusieurs sessions dans l'année.</p>
+          <div class="spectacle-details" style="text-align: left; padding: 20px;">
+            <h3 style="font-size: 2.5em; margin-bottom: 30px; color: var(--seventies-orange);">Nouveautés 2025</h3>
+            <h4 style="font-size: 1.8em; margin-bottom: 20px; color: white;">Si la terre</h4>
           </div>
         </div>
-        <p><strong>Sélection d'artistes repris :</strong> Antoine, Adamo, Franck Alamo, Claude François, Michel Delpech, Fugain, Polnareff, Sardou, Nino Ferrer, Jacques Dutronc, Julien Clerc, Joe Dassin, Hugues Aufray, Christophe, Françoise Hardy, Sylvie Vartan, Sacha Distel, Serge Lama, Georges Moustaki, Léo Ferré, Pierre Perret, Serge Gainsbourg, Alain Chamfort, Demis Roussos, Nana Mouskouri, Les Frères Jacques, Richard Antony, Charles Trenet.</p>
       </div>
       
       <!-- Spectacle 2: Monsieur Klück - Raconteur de Chansons -->
       <div class="spectacle fade-in">
-        <div class="spectacle-content">
-          <div class="spectacle-details">
+        <div class="spectacle-content" style="gap: 40px;">
+          <div class="spectacle-details" style="position: relative; padding: 20px;">
+            <div style="position: absolute; top: 70px; right: 20px; background: var(--seventies-orange); color: white; padding: 8px 15px; border-radius: 20px; font-size: 0.9em;">Souvenir du passé</div>
             <h3>Monsieur Klück – Raconteur de Chansons</h3>
-            <p><strong>Genre :</strong> Concert de chansons-histoires (créations originales) pour enfants, avec un répertoire concocté sur le thème du moment.</p>
-            <p><strong>Public :</strong> Destiné aux enfants des classes maternelles jusqu'au début primaire ainsi qu'à un public familial.</p>
-            <p><strong>Artistes :</strong> Pascal Guillaume dans le personnage de Monsieur Klück, créateur des chansons et des histoires du spectacle, et Vince Bilon en accompagnement (guitare et chœurs).</p>
-            <p><strong>Durée :</strong> 40 à 50 minutes, ajustée selon les tranches d'âge.</p>
-            <p><strong>Univers :</strong> Un spectacle musical dynamique et participatif, mêlant chanson, contes, histoires et poésie avec une touche enfantine, humoristique et pleine de bonne humeur.</p>
+            <p style="margin: 20px 0;"><strong>Un univers enchanteur pour le jeune public</strong></p>
+            <p style="margin-bottom: 20px;">Concert de chansons-histoires où Pascal Guillaume incarnait Monsieur Klück, un personnage attachant qui racontait des histoires en musique. Un spectacle qui a fait rêver les enfants des classes maternelles et du début primaire pendant de nombreuses années.</p>
+            <p><em>Album souvenir : Les Classiques de Monsieur Klück</em></p>
           </div>
           <div class="spectacle-image">
-            <img src="./kluck.jpeg" alt="Monsieur Klück">
+            <img src="./kluck.jpeg" alt="Monsieur Klück" style="filter: grayscale(0%) opacity(0.8); border-radius: 12px;">
           </div>
         </div>
-        <p><strong>Régie & Scénographie :</strong></p>
-        <ul>
-          <li>Décor en toile (2,30m x 2,30m) adaptable à tous les espaces</li>
-          <li>Sonorisation autonome</li>
-          <li>Conduite des lumières et plan de feux disponibles</li>
-          <li>Sur scène : l'artiste et le musicien en live (guitare, voix, chœurs) avec bandes-son originales</li>
-        </ul>
-        <p><strong>Tarifs :</strong> Pour les écoles et structures périscolaires : 5 € TTC par enfant (à partir de 100 spectateurs). Pour des publics plus restreints, un forfait personnalisé est établi sur devis.</p>
-        <p><strong>Nouvel album :</strong> Les Classiques de Monsieur Klück</p>
+      </div>
+      
+      <!-- Spectacle 3: C'est fini - Réveiller nos Chansons -->
+      <div class="spectacle fade-in">
+        <div class="spectacle-content" style="gap: 40px;">
+          <div class="spectacle-image">
+            <img src="rnc.jpeg" alt="Réveiller nos Chansons" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); filter: grayscale(0%) opacity(0.8);">
+          </div>
+          <div class="spectacle-details" style="position: relative; padding: 20px;">
+            <div style="position: absolute; top: 20px; right: 20px; background: var(--seventies-orange); color: white; padding: 8px 15px; border-radius: 20px; font-size: 0.9em;">Souvenir du passé</div>
+            <h3>Réveiller nos Chansons</h3>
+            <p style="margin: 20px 0;"><strong>Un voyage musical dans les années 70</strong></p>
+            <p>Concert de reprises des plus grands classiques de la chanson française des années seventies. Un duo acoustique qui a fait revivre avec passion les œuvres d'artistes légendaires comme Adamo, Claude François, Michel Delpech, Polnareff, Joe Dassin, et tant d'autres...</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -820,6 +1143,7 @@
           <iframe src="https://open.spotify.com/embed/album/6XlAKJlW6WQSjwzXDN2UzY?si=k3FFf_B_RDK6aMpDTR5fGA" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
       </div>
+
       <!-- Album: C'est de l'eau -->
       <div class="album fade-in">
         <h3>C'est de l'eau</h3>
@@ -828,12 +1152,117 @@
           <iframe src="https://open.spotify.com/embed/album/6cfMkcxgpWmfCRU9XNDiC7?si=dpvk5PYWSBGEijE_hjsyCw" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
       </div>
+
       <!-- Album: Les Classiques de Monsieur Klück -->
       <div class="album fade-in">
         <h3>Les Classiques de Monsieur Klück</h3>
         <p>Album - 20 titres (2022)</p>
         <div class="player">
           <iframe src="https://open.spotify.com/embed/album/0PFFyQcFjS8pPd6pKAu9iI?si=uYt4vTX_TPSE3E_lbDiarQ" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+      </div>
+
+      <!-- Album: Terre Ciel -->
+      <div class="album fade-in">
+        <div class="album-cover" style="margin-bottom: 20px;">
+          <img src="images/pochettes/terre ciel.png" alt="Album Terre Ciel" 
+            loading="lazy"
+            width="300" 
+            height="300" 
+            style="width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+        </div>
+        <h3>Terre Ciel</h3>
+        <div class="album-player" style="margin-top: 20px;">
+          <div class="custom-player" style="background: var(--light-color); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+            <div class="player-title" style="margin-bottom: 10px; font-weight: bold;">En cours de lecture: <span></span></div>
+            <audio id="terre-ciel-player" preload="none"></audio>
+            <div class="player-controls" style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+              <button class="play-pause" style="background: var(--seventies-orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-play"></i>
+              </button>
+              <div class="progress-container" style="flex-grow: 1; background: #ddd; height: 8px; border-radius: 4px; cursor: pointer;">
+                <div class="progress-bar" style="width: 0%; height: 100%; background: var(--seventies-orange); border-radius: 4px; transition: width 0.1s linear;"></div>
+              </div>
+              <span class="time-display" style="font-size: 0.9em;">0:00 / 0:00</span>
+            </div>
+          </div>
+          <div class="track-list" style="max-height: 300px; overflow-y: auto;">
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/DANSER NOS VIES.wav">Danser nos vies</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/DEMAIN JE PARS.wav">Demain je pars</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/IN THE SEA.wav">In the sea</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/JE N'EXISTE PLUS.wav">Je n'existe plus</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/L'INDIEN.wav">L'indien</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/LE PETIT NAVIRE.wav">Le petit navire</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/MARÉE NOIRE.wav">Marée noire</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/POUR LES JOURS A VENIR.wav">Pour les jours à venir</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/QUE DE L'EAU.wav">Que de l'eau</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/REFUGIES.wav">Refugiés</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/SILENCE.wav">Silence</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/TOI.wav">Toi</div>
+            <div class="track" data-album="terre-ciel" data-src="ALBUMS DEF/TERRE CIEL/UNE AUTRE FEMME.wav">Une autre femme</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Album: Visage -->
+      <div class="album fade-in">
+        <div class="album-cover" style="margin-bottom: 20px;">
+          <img src="images/pochettes/visage.png" alt="Album Visage" 
+            loading="lazy"
+            width="300" 
+            height="300" 
+            style="width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+        </div>
+        <h3>Visage</h3>
+        <div class="album-player" style="margin-top: 20px;">
+          <div class="custom-player" style="background: var(--light-color); padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+            <div class="player-title" style="margin-bottom: 10px; font-weight: bold;">En cours de lecture: <span></span></div>
+            <audio id="visage-player" preload="none"></audio>
+            <div class="player-controls" style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+              <button class="play-pause" style="background: var(--seventies-orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                <i class="fas fa-play"></i>
+              </button>
+              <div class="progress-container" style="flex-grow: 1; background: #ddd; height: 8px; border-radius: 4px; cursor: pointer;">
+                <div class="progress-bar" style="width: 0%; height: 100%; background: var(--seventies-orange); border-radius: 4px; transition: width 0.1s linear;"></div>
+              </div>
+              <span class="time-display" style="font-size: 0.9em;">0:00 / 0:00</span>
+            </div>
+          </div>
+          <div class="track-list" style="max-height: 300px; overflow-y: auto;">
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/01 DIS DES MOTS.mp3">Dis des mots</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/02 LE PONT DES ÊTRES ciel.mp3">Le pont des êtres (ciel)</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/03 L'ARMEE DES OMBRES.mp3">L'armée des ombres</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/04 PEAU DE PANTHERE.mp3">Peau de panthère</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/05 VISAGE.mp3">Visage</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/06ELLE DANSAIT COMME UNE ABEILLE.mp3">Elle dansait comme une abeille</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/07 LE PONT DES ÊTRES terre.mp3">Le pont des êtres (terre)</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/08 ECCHYMOSES.mp3">Ecchymoses</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/09L'ENFANT AU DEHORS.mp3">L'enfant au dehors</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/10 MOURIR HIER.mp3">Mourir hier</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/11 UNE CHAMBRE BLANCHE.mp3">Une chambre blanche</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/12 10MOIS X 2.mp3">10 mois x 2</div>
+            <div class="track" data-album="visage" data-src="ALBUMS DEF/VISAGE/13 J'AI DANSE AVEC LE MONDE.mp3">J'ai dansé avec le monde</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <div class="vinyl seventies-decoration" style="left: -100px; bottom: 50px;"></div>
+    <h2 class="section-title fade-in">Galerie</h2>
+    <div class="gallery-content fade-in">
+      <div class="carousel-wrapper">
+        <div class="carousel">
+          <button class="carousel-button prev" aria-label="Image précédente" style="background: var(--seventies-orange); color: white;">❮</button>
+          <button class="carousel-button next" aria-label="Image suivante" style="background: var(--seventies-orange); color: white;">❯</button>
+          <div class="carousel-container" id="carousel">
+            <!-- Les médias seront injectés ici via JavaScript -->
+          </div>
+          <div class="carousel-dots" id="carousel-dots">
+            <!-- Les points seront injectés ici via JavaScript -->
+          </div>
         </div>
       </div>
     </div>
@@ -843,22 +1272,16 @@
   <section id="contact">
     <h2 class="section-title fade-in">Contact</h2>
     <div class="contact fade-in">
-      <p>Pour toute demande concernant les spectacles, la programmation ou simplement pour en savoir plus sur Pascal Guillaume</p>
+      <p>En savoir plus sur Pascal Guillaume</p>
+      <p>Contactez-moi !</p>
       
-      <div class="contact-info">
-        <div class="contact-item">
-          <div class="contact-icon">
-            <i class="fas fa-ticket-alt"></i>
-          </div>
-          <h3>Réservations</h3>
-          <p>motivetcompagnie@gmail.com</p>
-        </div>
+
         
         <div class="contact-item">
           <div class="contact-icon">
             <i class="fas fa-music"></i>
           </div>
-          <h3>Artistique</h3>
+          <h3>Par mail</h3>
           <p>pascalguillaume77@gmail.com</p>
         </div>
         
@@ -867,7 +1290,7 @@
             <i class="fas fa-phone"></i>
           </div>
           <h3>Téléphone</h3>
-          <p>06 65 31 19 28</p>
+          <p>06 74 51 11 25</p>
         </div>
       </div>
     </div>
@@ -884,7 +1307,7 @@
         <a href="https://open.spotify.com/intl-fr/artist/2NT2NlRwgUxduu2w7Vj1vM" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
       </div>
       
-      <p><a href="https://www.pascal-guillaume.com/" target="_blank">Site officiel</a></p>
+     
     </div>
   </footer>
   
@@ -894,82 +1317,68 @@
   </a>
 
   <!-- Scripts -->
+  <script src="js/gallery.js"></script>
+  <script src="js/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Éléments avec effet fade-in au scroll
       const fadeElements = document.querySelectorAll('.fade-in');
       const backToTop = document.getElementById('back-to-top');
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      const overlay = document.querySelector('.overlay');
       
-      // Observer pour les animations au scroll
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            // Ajoute aussi une classe animate.css si nécessaire
-            if (entry.target.classList.contains('animate__animated')) {
-              entry.target.style.visibility = 'visible';
+      try {
+        // Observer pour les animations au scroll
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              if (entry.target.classList.contains('animate__animated')) {
+                entry.target.style.visibility = 'visible';
+              }
             }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px'
+        });
+
+        // Observe chaque élément fade-in
+        fadeElements.forEach(element => {
+          observer.observe(element);
+        });
+
+        // Gestion du bouton "Retour en haut"
+        window.addEventListener('scroll', () => {
+          if (window.pageYOffset > 300) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
           }
         });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px'
-      });
 
-      // Observe chaque élément fade-in
-      fadeElements.forEach(element => {
-        observer.observe(element);
-      });
-
-      // Gestion du bouton "Retour en haut"
-      window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
+        // Gestion du menu mobile
+        if (navToggle) {
+          navToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+          });
         }
-      });
 
-      // Défilement doux vers le haut lors du clic sur le bouton
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
+        if (overlay) {
+          overlay.addEventListener('click', () => {
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        }
 
-      // Défilement doux pour tous les liens d'ancrage
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          }
-        });
-      });
-
-      // Effet parallaxe pour le hero
-      const hero = document.querySelector('.hero');
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
-      });
-
-      // Animation des albums au survol
-      document.querySelectorAll('.album').forEach(album => {
-        album.addEventListener('mouseenter', () => {
-          album.style.transform = 'translateY(-10px)';
-        });
-        album.addEventListener('mouseleave', () => {
-          album.style.transform = 'translateY(0)';
-        });
-      });
+      } catch (error) {
+        console.error('Erreur dans l\'initialisation:', error);
+      }
     });
   </script>
-</body>
+  </body>
 </html>
