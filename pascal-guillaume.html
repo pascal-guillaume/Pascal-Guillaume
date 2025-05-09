@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pascal Guillaume - Artiste, Auteur-Compositeur, Comédien & Conteur</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Polices */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+    
+    /* Variables de couleurs */
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #e67e22;
+      --accent-color: #3498db;
+      --light-color: #ecf0f1;
+      --dark-color: #1a1a1a;
+      --seventies-orange: #f39c12;
+      --seventies-brown: #8B4513;
+      --seventies-mustard: #d4ac0d;
+    }
+    
+    /* Réglages généraux */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--dark-color);
+      background: #f6f6f6 url('https://www.transparenttextures.com/patterns/natural-paper.png');
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+    
+    /* Header avec effet parallax */
+    header {
+      background: var(--primary-color);
+      background-image: linear-gradient(to right, var(--dark-color), var(--primary-color));
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    nav {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 600;
+      position: relative;
+      padding: 5px 0;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--seventies-orange);
+      transition: width 0.3s ease;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* Section hero avec effet parallax */
+    .hero {
+      position: relative;
+      background: url('https://www.pascal-guillaume.com/assets/hero.jpg') no-repeat fixed center center/cover;
+      padding: 150px 20px;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7));
+      z-index: 0;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero h2 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .hero p {
+      font-size: 1.4em;
+      margin-top: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    
+    .hero-cta {
+      margin-top: 30px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--seventies-orange);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      margin: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+    }
+    
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.8em;
+      color: var(--primary-color);
+      position: relative;
+    }
+    
+    .section-title:after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--seventies-orange);
+    }
+    
+    .about, .spectacles, .discography, .contact {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.1em;
+      line-height: 1.8;
+    }
+    
+    /* Section À propos avec effet vintage */
+    .about {
+      text-align: center;
+      position: relative;
+    }
+    
+    .about p {
+      margin-bottom: 20px;
+    }
+    
+    .about:before, .about:after {
+      content: "♫";
+      font-size: 3em;
+      color: var(--seventies-mustard);
+      opacity: 0.2;
+      position: absolute;
+    }
+    
+    .about:before {
+      top: -60px;
+      left: 0;
+    }
+    
+    .about:after {
+      bottom: -60px;
+      right: 0;
+    }
+    
+    /* Section Spectacles avec style seventies */
+    .spectacles-container {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+    
+    .spectacle {
+      background: #fff;
+      padding: 30px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      border-left: 5px solid var(--seventies-orange);
+    }
+    
+    .spectacle:nth-child(even) {
+      border-left: none;
+      border-right: 5px solid var(--seventies-mustard);
+    }
+    
+    .spectacle:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--seventies-orange), var(--seventies-mustard));
+    }
+    
+    .spectacle-content {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    .spectacle:nth-child(even) .spectacle-content {
+      grid-template-columns: 2fr 1fr;
+    }
+    
+    .spectacle-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .spectacle-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .spectacle:hover .spectacle-image img {
+      transform: scale(1.05);
+    }
+    
+    .spectacle-details {
+      padding-left: 20px;
+    }
+    
+    .spectacle h3 {
+      margin-top: 0;
+      font-size: 1.8em;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .spectacle h3:after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--seventies-orange);
+    }
+    
+    .spectacle p, .spectacle ul {
+      margin: 15px 0;
+      color: #555;
+    }
+    
+    .spectacle strong {
+      color: var(--primary-color);
+    }
+    
+    .spectacle ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+    
+    .spectacle ul li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 8px;
+    }
+    
+    .spectacle ul li:before {
+      content: "♪";
+      position: absolute;
+      left: 0;
+      color: var(--seventies-mustard);
+    }
+    
+    /* Discography avec style vinyle */
+    .discography-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    
+    .album {
+      flex: 1 1 300px;
+      max-width: 320px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .album:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .album:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(to right, var(--seventies-orange), var(--seventies-mustard));
+    }
+    
+    .album h3 {
+      margin-top: 15px;
+      font-size: 1.5em;
+      color: var(--primary-color);
+    }
+    
+    .album p {
+      margin: 10px 0 20px;
+      color: #555;
+    }
+    
+    .player {
+      margin-top: 15px;
+      position: relative;
+    }
+    
+    .player iframe {
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Section Contact stylisée */
+    .contact {
+      text-align: center;
+      padding: 30px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .contact-item {
+      flex: 1 1 250px;
+      padding: 20px;
+      border-radius: 8px;
+      background: var(--light-color);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .contact-icon {
+      font-size: 2em;
+      color: var(--seventies-orange);
+      margin-bottom: 15px;
+    }
+    
+    .contact p {
+      margin: 5px 0;
+    }
+    
+    /* Footer stylisé */
+    footer {
+      background: var(--primary-color);
+      background-image: linear-gradient(to right, var(--dark-color), var(--primary-color));
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 1em;
+      position: relative;
+    }
+    
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .social-links {
+      margin: 20px 0;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5em;
+      transition: transform 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      transform: scale(1.2);
+      color: var(--seventies-orange);
+    }
+    
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      color: var(--seventies-orange);
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--seventies-orange);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Animation classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    
+    .fade-in.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Effets de décoration seventies */
+    .seventies-decoration {
+      position: absolute;
+      opacity: 0.05;
+      z-index: -1;
+    }
+    
+    .vinyl {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 15px solid #000;
+      background: repeating-radial-gradient(circle at center, 
+        transparent 0, 
+        transparent 10px, 
+        rgba(0,0,0,0.1) 10px, 
+        rgba(0,0,0,0.1) 20px);
+      position: absolute;
+      z-index: -1;
+    }
+    
+    /* Media Queries */
+    @media (max-width: 992px) {
+      .spectacle-content, 
+      .spectacle:nth-child(even) .spectacle-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .spectacle-image {
+        max-width: 350px;
+        margin: 0 auto 20px;
+      }
+      
+      .spectacle-details {
+        padding-left: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero h2 { font-size: 2.5em; }
+      .hero p { font-size: 1.2em; }
+      nav { flex-direction: column; gap: 10px; }
+      nav a { margin: 5px 0; }
+      .section-title { font-size: 2.2em; }
+      
+      .contact-info {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero h2 { font-size: 2em; }
+      .btn { padding: 10px 20px; display: block; margin: 10px auto; max-width: 200px; }
+      .album { flex: 1 1 100%; }
+    }
+
+    /* Section Parcours */
+    .parcours {
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+
+    .parcours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .parcours-item {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .parcours-item:hover {
+      transform: translateY(-10px);
+    }
+
+    .parcours-item i {
+      font-size: 2.5em;
+      color: var(--seventies-orange);
+      margin-bottom: 20px;
+    }
+
+    .parcours-item h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 1.4em;
+    }
+
+    .parcours-item p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .btn-small {
+      padding: 8px 20px;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+
+    .parcours-footer {
+      margin-top: 40px;
+      font-style: italic;
+      color: var(--primary-color);
+      font-size: 1.2em;
+    }
+
+    @media (max-width: 768px) {
+      .parcours-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .parcours-item {
+        padding: 20px;
+      }
+    }
+    .back-button {
+    width: 40px;  /* Drastiquement réduit de 25px à 8px */
+    height: 40px; /* Drastiquement réduit de 25px à 8px */
+    position: absolute;
+    left: 50px;  /* Réduit de 15px à 10px */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    padding: 0;
+    object-fit: contain;
+}
+
+.back-button:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+  </style>
+</head>
+<body class="pascal-page">
+  <!-- Header & Navigation -->
+  <header class="animate__animated animate__fadeInDown">
+    <a href="index.html">
+        <img src="images/blanc.png" alt="Retour à l'accueil" class="back-button">
+    </a>
+    <h1>Pascal Guillaume</h1>
+    <nav>
+      <a href="#about">À propos</a>
+      <a href="#spectacles">Spectacles</a>
+      <a href="#discography">Discographie</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content animate__animated animate__fadeIn animate__delay-1s">
+      <h2>Artiste, Auteur-Compositeur, Comédien & Conteur</h2>
+      <p>Plongez dans l'univers unique de Pascal Guillaume, un voyage musical à travers les émotions et les souvenirs des années 70 jusqu'à aujourd'hui</p>
+      <div class="hero-cta">
+        <a href="#spectacles" class="btn">Découvrir les spectacles</a>
+        <a href="#discography" class="btn btn-outline">Écouter sa musique</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="vinyl seventies-decoration" style="right: -150px; top: 50px;"></div>
+    <h2 class="section-title fade-in">À propos</h2>
+    <div class="about fade-in">
+      <p>Pascal Guillaume est un artiste français aux multiples talents. Chanteur, auteur-compositeur, comédien et conteur, il explore avec passion la chanson, le théâtre et la narration. Il s'adresse tant au grand public qu'au jeune public, notamment grâce à son personnage emblématique de Monsieur Klück.</p>
+      <p>Passionné par les seventies, il offre des spectacles riches et diversifiés, alliant reprises de classiques francophones et créations originales. Sa voix chaleureuse et son interprétation sincère transportent le public dans un univers musical où nostalgie et émotions se rencontrent.</p>
+    </div>
+  </section>
+
+  <!-- Parcours Section -->
+  <section id="parcours">
+    <div class="vinyl seventies-decoration" style="left: -150px; top: 50px;"></div>
+    <h2 class="section-title fade-in">Mon Chemin Solaire</h2>
+    <div class="parcours fade-in">
+      <div class="parcours-grid">
+        <div class="parcours-item">
+          <i class="fas fa-microphone"></i>
+          <h3>Chanteur</h3>
+          <p>Baryton haute contre avec mon CD VISAGE, à retrouver sur toutes les plateformes. Aujourd'hui, plus en voix haute qui m'inspire souvent davantage...</p>
+        </div>
+
+        <div class="parcours-item">
+          <i class="fas fa-theater-masks"></i>
+          <h3>Comédien Conteur</h3>
+          <p>Au gré des rencontres, j'ai cherché mes voix, écrit des mots d'amour, de désamour, ou plus engagés comme « REFUGIES ».</p>
+        </div>
+
+        <div class="parcours-item">
+          <i class="fas fa-music"></i>
+          <h3>Auteur Compositeur</h3>
+          <p>Sociétaire à la SACEM depuis de longues années.</p>
+        </div>
+
+        <div class="parcours-item">
+          <i class="fas fa-heart"></i>
+          <h3>Créateur de Vibrations et Résonances</h3>
+          <p>Pour institutions spécialisées</p>
+          <a href="http://vibrations-resonances.fr/" target="_blank" class="btn btn-small">Découvrir</a>
+        </div>
+
+        <div class="parcours-item">
+          <i class="fas fa-child"></i>
+          <h3>Artiste Jeune Public</h3>
+          <p>Avec le personnage de MONSIEUR KLÜCK</p>
+          <a href="https://spshowtail.wixsite.com/monsieur-kluck" target="_blank" class="btn btn-small">En savoir plus</a>
+        </div>
+
+        <div class="parcours-item">
+          <i class="fas fa-users"></i>
+          <h3>Artiste Grand Public</h3>
+          <p>Avec mon ami Vince Bilon, Auteur Compositeur Interprète et Arrangeur Réalisateur, j'ai créé mon site pour partager avec vous mes nouvelles chansons.</p>
+        </div>
+      </div>
+      
+      <div class="parcours-footer fade-in">
+        <p>Je souhaite qu'elles vous plaisent et vous donnent envie de les diffuser à votre tour...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spectacles Section -->
+  <section id="spectacles">
+    <div class="vinyl seventies-decoration" style="left: -150px; top: 250px;"></div>
+    <h2 class="section-title fade-in">Spectacles & Concerts</h2>
+    <div class="spectacles-container">
+      <!-- Spectacle 1: Réveiller nos Chansons -->
+      <div class="spectacle fade-in">
+        <div class="spectacle-content">
+          <div class="spectacle-image">
+            <img src="./rnc.jpeg" alt="Réveiller nos Chansons">
+          </div>
+          <div class="spectacle-details">
+            <h3>Réveiller nos Chansons</h3>
+            <p><strong>Concert de reprises</strong> de chansons francophones des années "seventies" en duo.</p>
+            <p><strong>Programme :</strong> Thématique variée pour la programmation culturelle, animations pour seniors et festivités. Le spectacle propose des expériences d'Artistes de scène avec une prestation live acoustique.</p>
+            <p><strong>Fiche technique :</strong></p>
+            <ul>
+              <li>Voix lead, chœurs et guitares folk</li>
+              <li>Accompagnement sur bande-son</li>
+              <li>Sonorisation autonome avec 2 micros Sure SM58, guitare électro-acoustique et 2 entrées stéréo pour bandes-son</li>
+              <li>Décor en toile tendue (2,30m x 2,30m) et lumières d'ambiance</li>
+              <li>Durée : 45 minutes par set (3 sets maximum, au-delà sur devis)</li>
+            </ul>
+            <p><strong>Tarifs :</strong> Devis sur-mesure, avec possibilité de tarifs exceptionnels pour plusieurs sessions dans l'année.</p>
+          </div>
+        </div>
+        <p><strong>Sélection d'artistes repris :</strong> Antoine, Adamo, Franck Alamo, Claude François, Michel Delpech, Fugain, Polnareff, Sardou, Nino Ferrer, Jacques Dutronc, Julien Clerc, Joe Dassin, Hugues Aufray, Christophe, Françoise Hardy, Sylvie Vartan, Sacha Distel, Serge Lama, Georges Moustaki, Léo Ferré, Pierre Perret, Serge Gainsbourg, Alain Chamfort, Demis Roussos, Nana Mouskouri, Les Frères Jacques, Richard Antony, Charles Trenet.</p>
+      </div>
+      
+      <!-- Spectacle 2: Monsieur Klück - Raconteur de Chansons -->
+      <div class="spectacle fade-in">
+        <div class="spectacle-content">
+          <div class="spectacle-details">
+            <h3>Monsieur Klück – Raconteur de Chansons</h3>
+            <p><strong>Genre :</strong> Concert de chansons-histoires (créations originales) pour enfants, avec un répertoire concocté sur le thème du moment.</p>
+            <p><strong>Public :</strong> Destiné aux enfants des classes maternelles jusqu'au début primaire ainsi qu'à un public familial.</p>
+            <p><strong>Artistes :</strong> Pascal Guillaume dans le personnage de Monsieur Klück, créateur des chansons et des histoires du spectacle, et Vince Bilon en accompagnement (guitare et chœurs).</p>
+            <p><strong>Durée :</strong> 40 à 50 minutes, ajustée selon les tranches d'âge.</p>
+            <p><strong>Univers :</strong> Un spectacle musical dynamique et participatif, mêlant chanson, contes, histoires et poésie avec une touche enfantine, humoristique et pleine de bonne humeur.</p>
+          </div>
+          <div class="spectacle-image">
+            <img src="./kluck.jpeg" alt="Monsieur Klück">
+          </div>
+        </div>
+        <p><strong>Régie & Scénographie :</strong></p>
+        <ul>
+          <li>Décor en toile (2,30m x 2,30m) adaptable à tous les espaces</li>
+          <li>Sonorisation autonome</li>
+          <li>Conduite des lumières et plan de feux disponibles</li>
+          <li>Sur scène : l'artiste et le musicien en live (guitare, voix, chœurs) avec bandes-son originales</li>
+        </ul>
+        <p><strong>Tarifs :</strong> Pour les écoles et structures périscolaires : 5 € TTC par enfant (à partir de 100 spectateurs). Pour des publics plus restreints, un forfait personnalisé est établi sur devis.</p>
+        <p><strong>Nouvel album :</strong> Les Classiques de Monsieur Klück</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Discography Section -->
+  <section id="discography">
+    <div class="vinyl seventies-decoration" style="right: -100px; bottom: 50px;"></div>
+    <h2 class="section-title fade-in">Discographie</h2>
+    <div class="discography-container">
+      <!-- Album: Danser nos vies -->
+      <div class="album fade-in">
+        <h3>Danser nos vies</h3>
+        <p>EP - 7 titres (2022)</p>
+        <div class="player">
+          <iframe src="https://open.spotify.com/embed/album/6XlAKJlW6WQSjwzXDN2UzY?si=k3FFf_B_RDK6aMpDTR5fGA" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+      </div>
+      <!-- Album: C'est de l'eau -->
+      <div class="album fade-in">
+        <h3>C'est de l'eau</h3>
+        <p>EP - 6 titres (2020)</p>
+        <div class="player">
+          <iframe src="https://open.spotify.com/embed/album/6cfMkcxgpWmfCRU9XNDiC7?si=dpvk5PYWSBGEijE_hjsyCw" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+      </div>
+      <!-- Album: Les Classiques de Monsieur Klück -->
+      <div class="album fade-in">
+        <h3>Les Classiques de Monsieur Klück</h3>
+        <p>Album - 20 titres (2022)</p>
+        <div class="player">
+          <iframe src="https://open.spotify.com/embed/album/0PFFyQcFjS8pPd6pKAu9iI?si=uYt4vTX_TPSE3E_lbDiarQ" width="100%" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2 class="section-title fade-in">Contact</h2>
+    <div class="contact fade-in">
+      <p>Pour toute demande concernant les spectacles, la programmation ou simplement pour en savoir plus sur Pascal Guillaume</p>
+      
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-ticket-alt"></i>
+          </div>
+          <h3>Réservations</h3>
+          <p>motivetcompagnie@gmail.com</p>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-music"></i>
+          </div>
+          <h3>Artistique</h3>
+          <p>pascalguillaume77@gmail.com</p>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3>Téléphone</h3>
+          <p>06 65 31 19 28</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Pascal Guillaume. Tous droits réservés.</p>
+      
+      <div class="social-links">
+        <a href="https://www.facebook.com/pascalguillaume2017/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://music.youtube.com/channel/UCxtTsAw2xEHJHGfl-GJymKQ" target="_blank" aria-label="YouTube Music"><i class="fab fa-youtube"></i></a>
+        <a href="https://open.spotify.com/intl-fr/artist/2NT2NlRwgUxduu2w7Vj1vM" target="_blank" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+      </div>
+      
+      <p><a href="https://www.pascal-guillaume.com/" target="_blank">Site officiel</a></p>
+    </div>
+  </footer>
+  
+  <!-- Back to top button -->
+  <a href="#" class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+    <i class="fas fa-chevron-up"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Éléments avec effet fade-in au scroll
+      const fadeElements = document.querySelectorAll('.fade-in');
+      const backToTop = document.getElementById('back-to-top');
+      
+      // Observer pour les animations au scroll
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Ajoute aussi une classe animate.css si nécessaire
+            if (entry.target.classList.contains('animate__animated')) {
+              entry.target.style.visibility = 'visible';
+            }
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px'
+      });
+
+      // Observe chaque élément fade-in
+      fadeElements.forEach(element => {
+        observer.observe(element);
+      });
+
+      // Gestion du bouton "Retour en haut"
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      });
+
+      // Défilement doux vers le haut lors du clic sur le bouton
+      backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Défilement doux pour tous les liens d'ancrage
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      // Effet parallaxe pour le hero
+      const hero = document.querySelector('.hero');
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
+      });
+
+      // Animation des albums au survol
+      document.querySelectorAll('.album').forEach(album => {
+        album.addEventListener('mouseenter', () => {
+          album.style.transform = 'translateY(-10px)';
+        });
+        album.addEventListener('mouseleave', () => {
+          album.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
